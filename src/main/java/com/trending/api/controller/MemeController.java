@@ -2,19 +2,22 @@ package com.trending.api.controller;
 
 import com.trending.api.model.entity.Meme;
 import com.trending.api.service.MemeService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/memes")
-@Slf4j
-@RequiredArgsConstructor
 public class MemeController {
 
+    private static final Logger log = LoggerFactory.getLogger(MemeController.class);
     private final MemeService memeService;
+
+    public MemeController(MemeService memeService) {
+        this.memeService = memeService;
+    }
 
     @GetMapping("/trending")
     public ResponseEntity<Page<Meme>> getTrendingMemes(
